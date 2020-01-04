@@ -1,0 +1,31 @@
+services:
+ - basePath: "/user"
+   middlewares:
+    - verify_jwt
+    - verify_csrf_token
+    - verify_params
+   microservice: "#/environment/userServices"
+   paths:
+    - "/register":
+       exclude_middlewares: 
+        - verify_jwt
+        - verify_csrf_token
+       interceptors:
+        - generate_jwt
+        - generate_csrf_token
+    - "/login":
+       exclude_middlewares: 
+        - verify_jwt
+        - verify_csrf_token
+       interceptors:
+        - generate_jwt
+        - generate_csrf_token
+    - "/logout":
+       interceptors:
+        - destroy_session  
+
+environment:
+ userServices:
+  server: "env.UserServices_Server"
+  version: "env.UserServices_Version"
+  deprecated: "env.UserServices_Deprecated"

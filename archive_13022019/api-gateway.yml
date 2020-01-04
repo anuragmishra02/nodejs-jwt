@@ -1,0 +1,27 @@
+microservices:
+  UserServices:
+   version: "Version"
+   server: "Server"    
+  MerchantServices:
+   version: "Version"
+   server: "Server"
+
+services:
+  - path: "/user"
+    server: "UserServices"
+    auth: "jwt"
+    rules:
+      - path: "/register"
+        auth: false
+        setCookie: true
+      - path: "/login"
+        auth: false
+        setCookie: true
+      - path: "/verifyPayment"        
+  - path: "/merchant"
+    server: "MerchantServices"
+    auth: "apikey"
+
+params:
+ signature: 
+  format: "decodeURIComponent"

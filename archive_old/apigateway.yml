@@ -1,0 +1,19 @@
+microservices:
+ - name: "user_services"
+   server: "http://localhost:7001"
+ - name: "payment_services"
+   server: "http://localhost:7002"
+ - name: "merchant_services"
+   server: "http://localhost:7003"
+
+services:
+ /user:
+  proxy: "user_services"
+  version: "v1"
+  auth: true
+  auth_type: "jwt"  
+  paths:
+   /login:    
+    auth: false
+   /register:    
+    auth: false 

@@ -1,0 +1,124 @@
+swagger: "2.0"
+info:
+  description: "Swagger document on stacker microservices"
+  version: "1.0.0"
+  title: "Stacker Microservices"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "stacker@nets.eu"
+  license:
+    name: "Nets"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:7050"
+basePath: ""
+tags:
+- name: "User Services"
+  description: "Microservice which offers end-user related services"  
+schemes:
+- "http"
+- "https"
+paths:
+  /user/v1/register:
+    post:
+      tags: 
+      - "User Services"
+      summary: "Register a new user in stacker"
+      description: ""
+      operationId: "registerUser"
+      consumes: 
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User data to be authenticated by authentication provider such as google, linkedin, etc"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            userId:
+              type: "string_uri"
+            accessToken:
+              type: "string"
+            authProvider:
+              type: "string"
+      responses:
+        200:
+          description: "User created in stacker"
+          schema:
+            type: "object"
+            properties:
+              data:
+               type: "string"
+  /user/v1/login:
+    post:
+      tags: 
+      - "User Services"
+      summary: "Gives access to returning user"
+      description: ""
+      operationId: "loginUser"
+      consumes: 
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User data to be authenticated by authentication provider such as google, linkedin, etc"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            userId:
+              type: "string"
+            accessToken:
+              type: "string"
+            authProvider:
+              type: "string"
+      responses:
+        200:
+          description: "User logged in successfully"
+          schema:
+            type: "object"
+            properties:
+              data:
+               type: "string"
+  /user/v1/profile:
+    get:
+      tags: 
+      - "User Services"
+      summary: "Get user information"
+      description: ""
+      operationId: "getUserProfile"
+      consumes: 
+      - "application/json"
+      produces:
+      - "application/json"      
+      responses:
+        200:
+          description: "User profile data is fetched from database"
+          schema:
+            type: "object"
+            properties:
+              data:
+               type: "object"
+               properties:
+                name:
+                  type: "string"
+                email:
+                  type: "string"
+                account_type:
+                  type: "string"
+                locked:
+                  type: "boolean"
+                active:
+                  type: "boolean"
+                balance: 
+                  type: "object"
+                  properties:
+                    free:
+                      type: "string"
+                    postpaid:
+                      type: "string"
+                  
